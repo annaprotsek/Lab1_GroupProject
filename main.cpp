@@ -8,11 +8,17 @@ std::unique_ptr<Result> calculateB(std::shared_ptr<const InputData> data);
 int main()
 {
     auto data = std::make_shared<const InputData>(InputData{
-        [](double x) { return (x - 2.0) * (x - 2.0) + 1.0; }, // f(x) = (x-2)^2 + 1, мінімум у x=2
-        0.0,   // a
-        5.0,   // b
-        1e-5   // eps
+        [](double x) { return (x - 2.0) * (x - 2.0) + 1.0; },
+        0.0,
+        5.0,
+        1e-5
     });
+
+    auto resultA = calculateA(data);
+    auto [xA, fxA, iterA, methodA] = *resultA;
+
+    std::cout << "Student A (" << methodA << "): x = " << xA
+               << ", f(x) = " << fxA << ", iterations = " << iterA << "\n";
 
     auto resultB = calculateB(data);
     auto [xB, fxB, iterB, methodB] = *resultB;
